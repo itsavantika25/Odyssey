@@ -292,11 +292,25 @@
             background: radial-gradient(circle at 30% 30%, rgba(200, 200, 200, 0.3), transparent);
         }
 
-        .planet:hover {
+        .planet.earth:hover {
             transform: scale(1.1);
             border-color: var(--accent-blue);
-            box-shadow: 0 0 20px var(--accent-glow);
+            box-shadow: 0 0 20px var(--accent-blue);
         }
+
+        .planet.mars:hover {
+            transform: scale(1.1);
+            border-color: var(--danger);
+            box-shadow: 0 0 20px var(--danger);
+        }
+        
+        .planet.luna:hover {
+            transform: scale(1.1);
+            border-color: var(--text-dim);
+            box-shadow: 0 0 20px var(--text-dim);
+        }
+
+
 
         .planet-label {
             position: absolute;
@@ -966,6 +980,246 @@
         .floating {
             animation: float 6s ease-in-out infinite;
         }
+
+        .payment-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+.transmission-canvas {
+    background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 30px;
+    min-height: 320px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+}
+.planet-node {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    color:var(--text-dim);
+    font-weight:350;
+}
+.planet-icon {
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.6rem;
+    border:1px solid rgba(255,255,255,0.06);
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    box-shadow:0 4px 20px rgba(0,0,0,0.5);
+}
+.transmission-stage {
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+.path-svg {
+    width:100%;
+    height:100%;
+}
+.dot {
+    r:8;
+    fill:var(--accent-blue);
+    filter:drop-shadow(0 6px 18px rgba(0,168,255,0.25));
+}
+.glow {
+    fill: rgba(0,168,255,0.08);
+    stroke: rgba(0,168,255,0.25);
+    stroke-width:1;
+}
+.transmission-controls {
+    display:flex;
+    gap:12px;
+    margin-top:18px;
+}
+.progress-bar {
+    width:100%;
+    height:10px;
+    background:rgba(255,255,255,0.04);
+    border-radius:999px;
+    overflow:hidden;
+}
+.progress-fill {
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#00a8ff, #7df3ff);
+    transition:width 300ms linear;
+}
+.payment-meta {
+    background:var(--card-bg);
+    padding:28px;
+    border:1px solid rgba(255,255,255,0.06);
+}
+.payment-meta .summary-row {
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:12px;
+    align-items:center;
+}
+.small-muted {
+    color:var(--text-dim);
+    font-size:0.85rem;
+}
+#completePaymentBtn[disabled] {
+    opacity:0.45;
+    cursor:not-allowed;
+}
+@media (max-width:768px) {
+    .payment-panel { grid-template-columns: 1fr; }
+    .planet-icon { width:60px; height:60px; font-size:1.3rem; }
+}
+
+.ai-modal {
+    text-align:center;
+    overflow:hidden;
+    background:radial-gradient(circle at center, rgba(0,0,0,0.8), rgba(0,0,0,1));
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 0 40px rgba(0,168,255,0.1);
+}
+.ai-orb {
+    position:relative;
+    width:140px;
+    height:140px;
+    margin:0 auto 30px;
+}
+.orb-core {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:60px;
+    height:60px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #00a8ff, #003f5c);
+    box-shadow:0 0 30px rgba(0,168,255,0.6);
+    animation:corePulse 2s infinite ease-in-out;
+}
+.orb-ring {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    border:2px solid rgba(0,168,255,0.25);
+    transform:translate(-50%,-50%) scale(1);
+    animation:ringRotate 6s linear infinite;
+}
+.orb-glow {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(0,168,255,0.1) 0%, transparent 70%);
+    transform:translate(-50%,-50%);
+    filter:blur(20px);
+}
+@keyframes corePulse {
+    0%,100%{transform:translate(-50%,-50%) scale(1);}
+    50%{transform:translate(-50%,-50%) scale(1.1);}
+}
+@keyframes ringRotate {
+    0%{transform:translate(-50%,-50%) rotate(0deg);}
+    100%{transform:translate(-50%,-50%) rotate(360deg);}
+}
+.ai-subtext {
+    color:var(--text-dim);
+    font-size:0.9rem;
+    margin-top:8px;
+}
+
+/*THE AIIIIIIII*/
+#odysseyContainer {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#odysseyOrb {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+#odysseyOrb .orb-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #00a8ff, #003f5c);
+  box-shadow: 0 0 30px rgba(0,168,255,0.6);
+  animation: corePulse 2s infinite ease-in-out;
+}
+#odysseyOrb .orb-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,168,255,0.25);
+  transform: translate(-50%, -50%) scale(1);
+  animation: ringRotate 6s linear infinite;
+  opacity: 0.6;
+}
+#odysseyOrb .orb-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,168,255,0.1) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  filter: blur(20px);
+  opacity: 0.5;
+}
+#odysseyOrb.listening .orb-ring {
+  border-color: rgba(125,243,255,0.9);
+  animation: ringPulse 1.3s ease-in-out infinite;
+}
+#odysseyOrb.speaking .orb-core {
+  box-shadow: 0 0 40px rgba(125,243,255,0.8);
+}
+@keyframes corePulse {
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,-50%) scale(1.1)}
+}
+@keyframes ringRotate {
+  0%{transform:translate(-50%,-50%) rotate(0deg)}
+  100%{transform:translate(-50%,-50%) rotate(360deg)}
+}
+@keyframes ringPulse {
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.8}
+  50%{transform:translate(-50%,-50%) scale(1.2);opacity:1}
+}
+@media (max-width:720px){
+  #odysseyOrb{width:80px;height:80px}
+  #odysseyOrb .orb-ring{width:80px;height:80px}
+  #odysseyOrb .orb-glow{width:130px;height:130px}
+}
+
+
+
     </style>
 </head>
 <body>
@@ -980,13 +1234,13 @@
                 <div class="nav-item active" onclick="showPage('home')">Home</div>
                 <div class="nav-item" onclick="showPage('travel')">Travel</div>
                 <div class="nav-item" onclick="showPage('hotels')">Stays</div>
-                <div class="nav-item" onclick="showPage('aircabs')">Aircabs</div>
+                <div class="nav-item" onclick="showPage('aircabs')">Aerocabs</div>
                 <div class="nav-item" onclick="showPage('offers')">Offers</div>
             </nav>
             
             <div class="user-controls">
                 <button class="btn-outline" onclick="showPage('travel')">
-                    Book Journey
+                    Book
                 </button>
                 <button class="logout-btn" onclick="logout()">
                     Logout
@@ -1167,7 +1421,7 @@
                     <div class="total-label">Total</div>
                     <div class="total-price" id="summaryTotal">ø0</div>
                 </div>
-                <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="showPage('payment')">
+                <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="updatePaymentPage(); showPage('payment')">
                     Continue to Payment
                 </button>
             </div>
@@ -1363,72 +1617,151 @@
         </section>
     </div>
 
-    <div id="payment" class="page">
-        <section class="booking-section">
-            <h1 class="section-title">COMPLETE YOUR <span>BOOKING</span></h1>
-            
-            <div class="booking-summary">
-                <h3 class="summary-title">BOOKING SUMMARY</h3>
-                <div class="summary-details">
-                    <div class="summary-item">
-                        <div class="summary-label">Service</div>
-                        <div class="summary-value" id="paymentService">-</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Amount</div>
-                        <div class="summary-value" id="paymentAmount">ø0</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Date</div>
-                        <div class="summary-value" id="paymentDate">-</div>
-                    </div>
-                    <div class="summary-item">
-                        <div class="summary-label">Booking ID</div>
-                        <div class="summary-value">ODY-2289-7294</div>
-                    </div>
-                </div>
-                <div class="summary-total">
-                    <div class="total-label">Total</div>
-                    <div class="total-price" id="paymentTotal">ø0</div>
-                </div>
-                
-                <div class="payment-options">
-                    <div class="payment-option active" onclick="selectPaymentMethod('crypto')">
-                        <div class="payment-icon">
-                            <i class="fas fa-coins"></i>
-                        </div>
-                        <h3>Crypto Exchange</h3>
-                        <p>Pay with Galaxy Coin or Astro Token</p>
-                    </div>
-                    <div class="payment-option" onclick="selectPaymentMethod('omega')">
-                        <div class="payment-icon">
-                            <i class="fas fa-wallet"></i>
-                        </div>
-                        <h3>Omega Credits</h3>
-                        <p>Universal currency for interstellar trade</p>
-                    </div>
-                </div>
-                
-                <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="processPayment()">
-                    Complete Payment
-                </button>
-            </div>
-        </section>
-    </div>
+<div id="payment" class="page">
+    <section class="booking-section">
+        <h1 class="section-title">COMPLETE YOUR <span>BOOKING</span></h1>
 
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('successModal')">&times;</span>
-            <div class="success-icon">
-                <i class="fas fa-check"></i>
+        <div id="paymentTransmission" class="payment-panel" style="display:none;">
+            <div class="transmission-canvas">
+                <div style="display:flex;gap:24px;align-items:center;z-index:2;">
+                    <div class="planet-node" id="p_source">
+                        <div class="planet-icon" id="p_source_icon">🌍</div>
+                        <div class="small-muted" id="p_source_label">SOURCE</div>
+                    </div>
+                    <div style="width:40px;display:flex;align-items:center;justify-content:center;">
+                        <div style="width:6px;height:6px;border-radius:999px;background:rgba(255,255,255,0.06)"></div>
+                    </div>
+                    <div class="planet-node" id="p_dest">
+                        <div class="planet-icon" id="p_dest_icon">🌙</div>
+                        <div class="small-muted" id="p_dest_label">DESTINATION</div>
+                    </div>
+                </div>
+                <div class="transmission-stage" aria-hidden="true">
+                    <svg class="path-svg" viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet" id="transmissionSvg">
+                        <defs>
+                            <linearGradient id="trailGrad" x1="0" x2="1" y1="0" y2="0">
+                                <stop offset="0%" stop-color="#00a8ff" stop-opacity="1"/>
+                                <stop offset="100%" stop-color="#7df3ff" stop-opacity="0.6"/>
+                            </linearGradient>
+                        </defs>
+                        <path id="transPath" d="M120 180 C 260 60, 540 60, 680 180" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
+                        <path id="trail" d="M120 180 C 260 60, 540 60, 680 180" fill="none" stroke="url(#trailGrad)" stroke-width="4" stroke-linecap="round" stroke-dasharray="0 1000"/>
+                        <g id="movingDot" transform="translate(0,0)" style="visibility:hidden;">
+                            <circle class="glow" cx="0" cy="0" r="18"/>
+                            <circle class="dot" cx="0" cy="0" r="6"/>
+                        </g>
+                    </svg>
+                </div>
+                <div style="position:absolute;bottom:22px;left:22px;right:22px;z-index:3;display:flex;align-items:center;gap:14px;">
+                    <div style="flex:1">
+                        <div class="small-muted">Transmission Progress</div>
+                        <div class="progress-bar" aria-hidden="true">
+                            <div class="progress-fill" id="transmissionProgress"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn-outline" id="startTransmissionBtn" onclick="startPaymentTransmission()" style="padding:10px 18px;">Initiate Transmission</button>
+                    </div>
+                </div>
             </div>
-            <h2>Booking Confirmed</h2>
-            <p>Your interstellar journey has been successfully booked. A confirmation has been sent to your registered communication device.</p>
-            <button class="btn-primary" onclick="closeModal('successModal'); showPage('home');" style="margin-top: 20px;">
-                Return to Home
-            </button>
+
+            <div class="payment-meta">
+                <h3 class="summary-title">BOOKING SUMMARY</h3>
+                <div class="summary-row"><div class="small-muted">Service</div><div id="paymentService">-</div></div>
+                <div class="summary-row"><div class="small-muted">Amount</div><div id="paymentAmount">ø0</div></div>
+                <div class="summary-row"><div class="small-muted">Date</div><div id="paymentDate">-</div></div>
+                <div class="summary-row"><div class="small-muted">Booking ID</div><div class="small-muted">ODY-2289-7294</div></div>
+                <div style="margin-top:16px;">
+                    <div class="small-muted">Payment Method</div>
+                    <div style="display:flex;gap:8px;margin-top:10px;">
+                        <div class="payment-option active" onclick="selectPaymentMethod('crypto')" id="payOptCrypto" style="flex:1;text-align:center;">
+                            <div class="payment-icon"><i class="fas fa-coins"></i></div>
+                            <div class="small-muted">Crypto</div>
+                        </div>
+                        <div class="payment-option" onclick="selectPaymentMethod('omega')" id="payOptOmega" style="flex:1;text-align:center;">
+                            <div class="payment-icon"><i class="fas fa-wallet"></i></div>
+                            <div class="small-muted">Omega</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:22px;">
+                    <div class="summary-total" style="border-top:none;padding-top:0;">
+                        <div class="total-label">Total</div>
+                        <div class="total-price" id="paymentTotal">ø0</div>
+                    </div>
+                    <div class="transmission-controls" style="margin-top:14px;">
+                        <button class="btn-outline" onclick="showPage('travel')" style="flex:1">Back</button>
+                        <button class="btn-primary" id="completePaymentBtn" style="flex:1" onclick="processPayment()" disabled>Complete Payment</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div id="paymentAI" style="display:none;text-align:center;margin-top:60px;">
+            <div class="ai-orb">
+                <div class="orb-core"></div>
+                <div class="orb-ring"></div>
+                <div class="orb-glow"></div>
+            </div>
+            <h2 id="aiPayMsg">Initializing authorization...</h2>
+            <p id="aiPaySub" class="ai-subtext">Syncing with payment gateway...</p>
+            <button class="btn-primary" id="completePaymentBtnAlt" style="margin-top:24px;display:none;" onclick="processPayment()">Complete Payment</button>
+
+            <div class="payment-meta" style="margin-top:60px;">
+                <h3 class="summary-title">BOOKING SUMMARY</h3>
+                <div class="summary-row"><div class="small-muted">Service</div><div id="paymentServiceAI">-</div></div>
+                <div class="summary-row"><div class="small-muted">Amount</div><div id="paymentAmountAI">ø0</div></div>
+                <div class="summary-row"><div class="small-muted">Date</div><div id="paymentDateAI">-</div></div>
+                <div class="summary-row"><div class="small-muted">Booking ID</div><div class="small-muted">ODY-2289-7294</div></div>
+                <div style="margin-top:16px;">
+                    <div class="small-muted">Payment Method</div>
+                    <div style="display:flex;gap:8px;margin-top:10px;">
+                        <div class="payment-option active" onclick="selectPaymentMethod('crypto')" id="payOptCryptoAI" style="flex:1;text-align:center;">
+                            <div class="payment-icon"><i class="fas fa-coins"></i></div>
+                            <div class="small-muted">Crypto</div>
+                        </div>
+                        <div class="payment-option" onclick="selectPaymentMethod('omega')" id="payOptOmegaAI" style="flex:1;text-align:center;">
+                            <div class="payment-icon"><i class="fas fa-wallet"></i></div>
+                            <div class="small-muted">Omega</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:22px;">
+                    <div class="summary-total" style="border-top:none;padding-top:0;">
+                        <div class="total-label">Total</div>
+                        <div class="total-price" id="paymentTotalAI">ø0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+   <div id="successModal" class="modal">
+    <div class="modal-content ai-modal">
+        <span class="close-modal" onclick="closeModal('successModal')">&times;</span>
+        <div class="ai-orb">
+            <div class="orb-core"></div>
+            <div class="orb-ring"></div>
+            <div class="orb-glow"></div>
+        </div>
+        <h2 id="aiMessage">Verifying identity...</h2>
+        <p class="ai-subtext" id="aiSubText">Connecting to the Ledger...</p>
+        <button class="btn-primary" id="returnHomeBtn" onclick="closeModal('successModal'); showPage('home');" style="margin-top: 20px; display:none;">
+            Return to Home
+        </button>
     </div>
+</div>
+
+<div id="odysseyContainer">
+  <div id="odysseyOrb">
+    <div class="orb-core"></div>
+    <div class="orb-ring"></div>
+    <div class="orb-glow"></div>
+  </div>
+</div>
+
 
     <script>
         let currentBooking = {
@@ -1607,64 +1940,77 @@
         }
 
         function showFlightOptions() {
-            const optionsContainer = document.getElementById('flightOptions');
-            optionsContainer.style.display = 'grid';
-            
-            const flightType = currentBooking.flightType;
-            let priceMultiplier = 1;
-            
-            if (flightType === 'round-trip') {
-                priceMultiplier = 1.8;
-            } else if (flightType === 'multi-spot') {
-                priceMultiplier = 2.5;
-            }
-            
-            const options = [
-                {
-                    id: 'standard',
-                    name: 'Standard Journey',
-                    icon: 'fas fa-rocket',
-                    description: 'Comfortable travel with standard amenities',
-                    price: Math.round(2999 * priceMultiplier)
-                },
-                {
-                    id: 'premium', 
-                    name: 'Premium Journey',
-                    icon: 'fas fa-bolt',
-                    description: 'Enhanced comfort with extra legroom',
-                    price: Math.round(4999 * priceMultiplier)
-                },
-                {
-                    id: 'elite',
-                    name: 'Elite Journey',
-                    icon: 'fas fa-crown',
-                    description: 'Luxury experience with premium services',
-                    price: Math.round(7999 * priceMultiplier)
-                }
-            ];
-            
-            optionsContainer.innerHTML = options.map(option => `
-                <div class="service-card" onclick="selectFlightOption('${option.id}', ${option.price})">
-                    <div class="service-image">
-                        <i class="${option.icon}"></i>
-                    </div>
-                    <h3>${option.name}</h3>
-                    <p>${option.description}</p>
-                    <div class="service-price"><span>ø${option.price.toLocaleString()}</span></div>
-                </div>
-            `).join('');
-            
-            optionsContainer.scrollIntoView({ behavior: 'smooth' });
-        }
+    const departure = document.getElementById('departurePlanet').value;
+    const destination = document.getElementById('destinationPlanet').value;
+    const travelers = parseInt(document.getElementById('travelers').value);
+    const flightType = currentBooking.flightType;
+    const optionsContainer = document.getElementById('flightOptions');
+    optionsContainer.style.display = 'grid';
 
-        function selectFlightOption(optionId, price) {
-            currentBooking.type = 'travel';
-            currentBooking.service = optionId;
-            currentBooking.amount = price;
-            currentBooking.date = document.getElementById('departureDate').value;
-            
-            updateTravelSummary();
+    const basePrices = {
+        'earth-luna': 1200,
+        'luna-earth': 1200,
+        'earth-mars': 3000,
+        'mars-earth': 3000,
+        'luna-mars': 2500,
+        'mars-luna': 2500
+    };
+
+    const routeKey = `${departure}-${destination}`;
+    let basePrice = basePrices[routeKey] || 1500;
+    let typeMultiplier = 1;
+    if (flightType === 'round-trip') typeMultiplier = 1.8;
+    if (flightType === 'multi-spot') typeMultiplier = 2.5;
+    const travelerMultiplier = travelers;
+
+    const options = [
+        {
+            id: 'standard',
+            name: 'Standard Journey',
+            icon: 'fas fa-rocket',
+            description: 'Comfortable travel with standard amenities',
+            multiplier: 1
+        },
+        {
+            id: 'premium',
+            name: 'Premium Journey',
+            icon: 'fas fa-bolt',
+            description: 'Enhanced comfort with extra legroom',
+            multiplier: 1.6
+        },
+        {
+            id: 'elite',
+            name: 'Elite Journey',
+            icon: 'fas fa-crown',
+            description: 'Luxury experience with premium services',
+            multiplier: 2.2
         }
+    ];
+
+    optionsContainer.innerHTML = options.map(option => {
+        const price = Math.round(basePrice * option.multiplier * typeMultiplier * travelerMultiplier);
+        return `
+            <div class="service-card" onclick="selectFlightOption('${option.id}', ${price})">
+                <div class="service-image">
+                    <i class="${option.icon}"></i>
+                </div>
+                <h3>${option.name}</h3>
+                <p>${option.description}</p>
+                <div class="service-price"><span>ø${price.toLocaleString()}</span></div>
+            </div>
+        `;
+    }).join('');
+
+    optionsContainer.scrollIntoView({ behavior: 'smooth' });
+}
+
+function selectFlightOption(optionId, price) {
+    currentBooking.type = 'travel';
+    currentBooking.service = optionId;
+    currentBooking.amount = price;
+    currentBooking.date = document.getElementById('departureDate').value;
+    updateTravelSummary();
+}
 
         function updateTravelSummary() {
             const summary = document.getElementById('travelSummary');
@@ -1774,22 +2120,81 @@
         }
 
         function updatePaymentPage() {
-            document.getElementById('paymentService').textContent = currentBooking.service;
-            document.getElementById('paymentAmount').textContent = `ø${currentBooking.amount.toLocaleString()}`;
-            document.getElementById('paymentDate').textContent = new Date(currentBooking.date).toLocaleDateString();
-            document.getElementById('paymentTotal').textContent = `ø${currentBooking.amount.toLocaleString()}`;
-        }
+    document.getElementById('paymentService').textContent = currentBooking.service || '-';
+    document.getElementById('paymentAmount').textContent = `ø${(currentBooking.amount||0).toLocaleString()}`;
+    document.getElementById('paymentDate').textContent = currentBooking.date ? new Date(currentBooking.date).toLocaleDateString() : '-';
+    document.getElementById('paymentTotal').textContent = `ø${(currentBooking.amount||0).toLocaleString()}`;
 
-        function processPayment() {
-            const method = document.querySelector('.payment-option.active');
-            
-            if (!method) {
-                alert('Please select a payment method.');
-                return;
-            }
-            
-            openModal('successModal');
-        }
+    const isTravel = currentBooking.type === 'travel';
+    const transDiv = document.getElementById('paymentTransmission');
+    const aiDiv = document.getElementById('paymentAI');
+    const altBtn = document.getElementById('completePaymentBtnAlt');
+
+    if (isTravel) {
+        transDiv.style.display = 'grid';
+        aiDiv.style.display = 'none';
+    } else {
+        transDiv.style.display = 'none';
+        aiDiv.style.display = 'block';
+        altBtn.style.display = 'none';
+        document.getElementById('aiPayMsg').textContent = 'Initializing authorization...';
+        document.getElementById('aiPaySub').textContent = 'Syncing with payment gateway...';
+        runAIPaymentSequence();
+    }
+}
+
+function runAIPaymentSequence() {
+    const msg = document.getElementById('aiPayMsg');
+    const sub = document.getElementById('aiPaySub');
+    const btn = document.getElementById('completePaymentBtnAlt');
+    msg.textContent = 'Authorizing credentials...';
+    sub.textContent = 'Scanning interstellar identity...';
+    setTimeout(() => {
+        msg.textContent = 'Authorization confirmed.';
+        sub.textContent = 'Access granted to payment gateway.';
+    }, 1800);
+    setTimeout(() => {
+        msg.textContent = 'Ready to complete transaction.';
+        sub.textContent = 'Proceed to finalize your booking.';
+        btn.style.display = 'inline-block';
+    }, 3400);
+}
+
+       function processPayment() {
+    const method = document.querySelector('.payment-option.active');
+    if (!method) {
+        alert('Please select a payment method.');
+        return;
+    }
+    openModal('successModal');
+    runAIConfirmationSequence();
+}
+
+function runAIConfirmationSequence() {
+    const msg = document.getElementById('aiMessage');
+    const sub = document.getElementById('aiSubText');
+    const btn = document.getElementById('returnHomeBtn');
+
+    msg.textContent = 'Verifying identity...';
+    sub.textContent = 'Connecting to the Ledger...';
+    btn.style.display = 'none';
+
+    setTimeout(() => {
+        msg.textContent = 'Identity confirmed.';
+        sub.textContent = 'Synchronizing travel credentials...';
+    }, 1800);
+
+    setTimeout(() => {
+        msg.textContent = 'Reservation secured.';
+        sub.textContent = 'Your payment transmission has been received.';
+    }, 3400);
+
+    setTimeout(() => {
+        msg.textContent = 'Booking Confirmed';
+        sub.textContent = 'Welcome aboard, traveler.';
+        btn.style.display = 'inline-block';
+    }, 5200);
+}
 
         function logout() {
             if (confirm('Are you sure you want to log out?')) {
@@ -1859,6 +2264,373 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
             });
         });
-    </script>
+        let transmissionState = {
+    running: false,
+    startTime: 0,
+    duration: 4200
+};
+
+function startPaymentTransmission() {
+    if (!currentBooking || !currentBooking.amount) {
+        alert('No booking selected.');
+        return;
+    }
+    const startBtn = document.getElementById('startTransmissionBtn');
+    startBtn.disabled = true;
+    startBtn.textContent = 'Transmitting...';
+    setupTransmissionVisuals();
+    transmissionState.running = true;
+    transmissionState.startTime = performance.now();
+    requestAnimationFrame(runTransmissionAnimation);
+}
+
+function setupTransmissionVisuals() {
+    const srcIcon = document.getElementById('p_source_icon');
+    const dstIcon = document.getElementById('p_dest_icon');
+    const srcLabel = document.getElementById('p_source_label');
+    const dstLabel = document.getElementById('p_dest_label');
+
+    const dep = document.getElementById('departurePlanet').value || 'earth';
+    const dest = document.getElementById('destinationPlanet').value || 'luna';
+
+    const emojiMap = { earth:'🌍', luna:'🌙', mars:'🔴' };
+    srcIcon.textContent = emojiMap[dep] || '🌍';
+    dstIcon.textContent = emojiMap[dest] || '🌙';
+
+    srcLabel.textContent = dep.toUpperCase();
+    dstLabel.textContent = dest.toUpperCase();
+
+    updatePaymentPage();
+    const trail = document.getElementById('trail');
+    trail.setAttribute('stroke-dasharray', '0 1000');
+    document.getElementById('movingDot').style.visibility = 'visible';
+    document.getElementById('transmissionProgress').style.width = '0%';
+    document.getElementById('completePaymentBtn').disabled = true;
+}
+
+function runTransmissionAnimation(ts) {
+    if (!transmissionState.running) return;
+    const elapsed = ts - transmissionState.startTime;
+    const t = Math.min(elapsed / transmissionState.duration, 1);
+    const path = document.getElementById('transPath');
+    const pathLen = path.getTotalLength();
+    const drawLen = Math.round(pathLen * t);
+    const trail = document.getElementById('trail');
+    trail.setAttribute('stroke-dasharray', `${drawLen} ${pathLen}`);
+    const point = path.getPointAtLength(pathLen * t);
+    const mv = document.getElementById('movingDot');
+    mv.setAttribute('transform', `translate(${point.x}, ${point.y})`);
+    const progressFill = document.getElementById('transmissionProgress');
+    progressFill.style.width = `${Math.round(t * 100)}%`;
+    if (t < 1) {
+        requestAnimationFrame(runTransmissionAnimation);
+    } else {
+        onTransmissionComplete();
+    }
+}
+
+function onTransmissionComplete() {
+    transmissionState.running = false;
+    document.getElementById('startTransmissionBtn').textContent = 'Transmission Complete';
+    document.getElementById('completePaymentBtn').disabled = false;
+    const mv = document.getElementById('movingDot');
+    mv.setAttribute('transform', `translate(680,180)`);
+    const trail = document.getElementById('trail');
+    trail.setAttribute('stroke-dasharray', '1000 0');
+    setTimeout(() => {
+        document.getElementById('startTransmissionBtn').textContent = 'Re-run Transmission';
+        document.getElementById('startTransmissionBtn').disabled = false;
+    }, 900);
+}
+
+function updatePaymentPage() {
+    const type = currentBooking.type || 'travel';
+    const isTravel = type === 'travel';
+    const transDiv = document.getElementById('paymentTransmission');
+    const aiDiv = document.getElementById('paymentAI');
+
+    document.getElementById('paymentService').textContent = currentBooking.service || '-';
+    document.getElementById('paymentAmount').textContent = `ø${(currentBooking.amount || 0).toLocaleString()}`;
+    document.getElementById('paymentDate').textContent = currentBooking.date ? new Date(currentBooking.date).toLocaleDateString() : '-';
+    document.getElementById('paymentTotal').textContent = `ø${(currentBooking.amount || 0).toLocaleString()}`;
+
+    const syncFields = () => {
+        document.getElementById('paymentServiceAI').textContent = currentBooking.service || '-';
+        document.getElementById('paymentAmountAI').textContent = `ø${(currentBooking.amount || 0).toLocaleString()}`;
+        document.getElementById('paymentDateAI').textContent = currentBooking.date ? new Date(currentBooking.date).toLocaleDateString() : '-';
+        document.getElementById('paymentTotalAI').textContent = `ø${(currentBooking.amount || 0).toLocaleString()}`;
+    };
+
+    if (isTravel) {
+        transDiv.style.display = 'grid';
+        aiDiv.style.display = 'none';
+        syncFields();
+    } else {
+        transDiv.style.display = 'none';
+        aiDiv.style.display = 'block';
+        syncFields();
+        runAIPaymentSequence();
+    }
+}
+function runAIPaymentSequence() {
+    const msg = document.getElementById('aiPayMsg');
+    const sub = document.getElementById('aiPaySub');
+    const btn = document.getElementById('completePaymentBtnAlt');
+    msg.textContent = 'Authorizing credentials...';
+    sub.textContent = 'Scanning interstellar identity...';
+    btn.style.display = 'none';
+    setTimeout(() => {
+        msg.textContent = 'Authorization confirmed.';
+        sub.textContent = 'Access granted to payment gateway.';
+    }, 1800);
+    setTimeout(() => {
+        msg.textContent = 'Ready to complete transaction.';
+        sub.textContent = 'Proceed to finalize your booking.';
+        btn.style.display = 'inline-block';
+    }, 3400);
+}
+
+(function(){
+  const orb = document.getElementById('odysseyOrb');
+  if (!orb) {
+    console.warn('Odyssey orb element (#odysseyOrb) not found. Creating fallback orb.');
+    const container = document.createElement('div');
+    container.id = 'odysseyContainer';
+    container.style.position = 'fixed';
+    container.style.right = '30px';
+    container.style.bottom = '30px';
+    container.style.zIndex = '2000';
+    document.body.appendChild(container);
+    const created = document.createElement('div');
+    created.id = 'odysseyOrb';
+    created.innerHTML = '<div class="orb-core"></div><div class="orb-ring"></div><div class="orb-glow"></div>';
+    container.appendChild(created);
+  }
+
+  const getEl = id => document.getElementById(id);
+  const statusId = 'odysseyStatus';
+  function ensureStatus() {
+    let s = getEl(statusId);
+    if (!s) {
+      s = document.createElement('div');
+      s.id = statusId;
+      s.style.position = 'fixed';
+      s.style.right = '30px';
+      s.style.bottom = '140px';
+      s.style.padding = '8px 12px';
+      s.style.background = 'rgba(6,6,6,0.85)';
+      s.style.color = 'white';
+      s.style.fontSize = '12px';
+      s.style.borderRadius = '8px';
+      s.style.zIndex = '3000';
+      s.style.boxShadow = '0 8px 30px rgba(0,0,0,0.6)';
+      s.style.pointerEvents = 'none';
+      s.textContent = 'Odyssey ready';
+      document.body.appendChild(s);
+    }
+    return s;
+  }
+  const statusEl = ensureStatus();
+  function setStatus(t){
+    statusEl.textContent = t;
+    console.log('Odyssey status:', t);
+  }
+
+  let recognition = null;
+  let listening = false;
+  let voicesReady = false;
+
+  function getVoicesAsync(timeout = 1500){
+    return new Promise(resolve => {
+      const synth = window.speechSynthesis;
+      let voices = synth ? synth.getVoices() : [];
+      if (voices && voices.length) {
+        voicesReady = true;
+        return resolve(voices);
+      }
+      const onVoices = () => {
+        voices = synth.getVoices();
+        if (voices && voices.length) {
+          voicesReady = true;
+          synth.removeEventListener('voiceschanged', onVoices);
+          return resolve(voices);
+        }
+      };
+      if (synth) synth.addEventListener('voiceschanged', onVoices);
+      setTimeout(()=> {
+        voices = synth ? synth.getVoices() : [];
+        voicesReady = !!(voices && voices.length);
+        if (synth) synth.removeEventListener('voiceschanged', onVoices);
+        resolve(voices);
+      }, timeout);
+    });
+  }
+
+  async function speak(text){
+    setStatus('Speaking');
+    orb.classList.add('speaking');
+    try {
+      const synth = window.speechSynthesis;
+      if (!synth) {
+        console.warn('No speechSynthesis available.');
+        setTimeout(()=>{ orb.classList.remove('speaking'); setStatus('No TTS'); }, 600);
+        return;
+      }
+      const voices = await getVoicesAsync();
+      const utter = new SpeechSynthesisUtterance(text);
+      const prefer = (voices || []).find(v => /Google|Microsoft|Samantha|Alex|Alloy|Alloy/i.test(v.name)) || (voices && voices[0]);
+      if (prefer) utter.voice = prefer;
+      utter.rate = 0.95;
+      utter.pitch = 1.02;
+      synth.cancel();
+      synth.speak(utter);
+      utter.onend = () => { orb.classList.remove('speaking'); setStatus('Ready'); };
+      utter.onerror = (e) => { orb.classList.remove('speaking'); console.error('TTS error', e); setStatus('TTS error'); };
+    } catch (e) {
+      orb.classList.remove('speaking');
+      console.error(e);
+      setStatus('TTS failed');
+    }
+  }
+
+  const commands = [
+    { pats:[/interstell(ar)?/i,/space travel/i,/destin/i], reply:'Displaying interstellar routes.', action:()=>{ updatePaymentPage(); showPage('travel'); } },
+    { pats:[/show.*travel/i,/open.*travel/i,/plan.*trip/i,/voyage/i], reply:'Accessing available voyages.', action:()=>showPage('travel') },
+    { pats:[/\bmars\b/i,/mars flights/i], reply:'Loading Mars expeditions.', action:()=>{ document.getElementById('destinationPlanet') && (document.getElementById('destinationPlanet').value='mars'); showPage('travel'); updateRouteInfo(); } },
+    { pats:[/\bluna\b|\bmoon\b/i,/lunar/i], reply:'Opening lunar routes.', action:()=>{ document.getElementById('destinationPlanet') && (document.getElementById('destinationPlanet').value='luna'); showPage('travel'); updateRouteInfo(); } },
+    { pats:[/hotel|stay/i,/book.*hotel/i], reply:'Displaying planetary stays.', action:()=>showPage('hotels') },
+    { pats:[/cab|ride|aircab/i,/get me a ride/i], reply:'Summoning aerial pods.', action:()=>showPage('aircabs') },
+    { pats:[/open.*trips/i,/my trips/i,/bookings?/i,/history/i], reply:'Accessing travel archives.', action:()=>showPage('offers') },
+    { pats:[/payment|checkout|pay now|complete booking/i], reply:'Redirecting to payment terminal.', action:()=>{ updatePaymentPage(); showPage('payment'); } },
+    { pats:[/hello|hi|hey/i], reply:'Greetings, traveler.', action:null },
+    { pats:[/who are you|what are you/i], reply:'I am Odyssey, your onboard concierge.', action:null },
+    { pats:[/help|assist|what can you do/i], reply:'I can guide voyages, show stays, and finalize bookings.', action:null },
+    { pats:[/cancel|stop listening|stop/i], reply:'Standing by.', action:()=>{} }
+  ];
+
+  function findCommand(transcript){
+    const t = transcript.toLowerCase();
+    for (const c of commands) {
+      for (const p of c.pats) {
+        if (p.test(t)) return c;
+      }
+    }
+    return null;
+  }
+
+  function handleTranscript(text){
+    setStatus('Processing');
+    const cmd = findCommand(text);
+    if (cmd) {
+      speak(cmd.reply);
+      if (cmd.action) setTimeout(()=>{ try { cmd.action(); } catch(e){ console.error(e); } }, 900);
+    } else {
+      speak('Apologies, I could not parse that command. Try asking to show flights or hotels.');
+    }
+  }
+
+  function stopRecognition() {
+    if (recognition) {
+      try { recognition.onend = null; recognition.onerror = null; recognition.onresult = null; recognition.stop(); } catch(e){ }
+      recognition = null;
+    }
+    listening = false;
+    orb.classList.remove('listening');
+    setStatus('Ready');
+  }
+
+  async function startRecognition() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      setStatus('SpeechRecognition unavailable');
+      speak('Voice recognition is not supported in this browser.');
+      return;
+    }
+    if (listening) return;
+    try {
+      await getVoicesAsync(300); 
+    } catch(e){}
+    try {
+      recognition = new SR();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+      recognition.continuous = false;
+      recognition.onstart = () => {
+        listening = true;
+        orb.classList.add('listening');
+        setStatus('Listening');
+      };
+      recognition.onresult = (ev) => {
+        const transcript = ev.results[0][0].transcript.trim();
+        console.log('Odyssey heard:', transcript);
+        handleTranscript(transcript);
+      };
+      recognition.onerror = (ev) => {
+        console.warn('Odyssey recognition error', ev);
+        if (ev && ev.error === 'not-allowed') {
+          setStatus('Mic permission denied');
+          speak('Microphone permission denied. Please allow microphone access and try again.');
+        } else {
+          setStatus('Recognition error');
+          speak('I had trouble hearing you. Please try again.');
+        }
+        stopRecognition();
+      };
+      recognition.onend = () => {
+        listening = false;
+        orb.classList.remove('listening');
+        setStatus('Ready');
+        recognition = null;
+      };
+      try {
+        recognition.start();
+      } catch (e) {
+        console.error('start() failed', e);
+        setStatus('Recognition start error');
+        speak('Unable to start voice capture.');
+      }
+    } catch (err) {
+      console.error('Failed to init recognition', err);
+      setStatus('Recognition init failed');
+      speak('Voice recognition initialization failed.');
+    }
+  }
+
+  orb.addEventListener('click', async () => {
+    if (listening) { stopRecognition(); return; }
+    try {
+      
+      await getVoicesAsync(500);
+    } catch(e){}
+    startRecognition();
+  });
+
+  orb.addEventListener('keydown', (e)=>{
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); orb.click(); }
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(()=> {
+      
+      if (window.speechSynthesis) {
+        try { window.speechSynthesis.getVoices(); } catch(e){ }
+      }
+      setStatus('Ready');
+    }, 300);
+  });
+
+
+  window._odyssey = {
+    speak: (t)=> speak(t),
+    testRecognition: ()=> startRecognition(),
+    stop: ()=> stopRecognition(),
+    statusEl: statusEl
+  };
+
+})();
+
+
+</script>
 </body>
 </html>
